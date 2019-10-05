@@ -14,7 +14,7 @@ export const MovieUrls = {
 
 export const MOVIE_BASE_URL = 'https://api.themoviedb.org/3/discover/movie?api_key=b33cef0e8f9a26e8857366681a641e25&language=en-US&sort_by=popularity.desc';
 
-export const POSTER_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/original/';
+export const POSTER_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w300/';
 
 export function getGenreId(genreName) {
     switch (genreName) {
