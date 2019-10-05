@@ -1,0 +1,18 @@
+Genre list
+
+Adventure:
+https://api.themoviedb.org/3/discover/movie?api_key=b33cef0e8f9a26e8857366681a641e25&language=en-US&sort_by=popularity.desc&page=1&with_genres=12
+
+Action:
+https://api.themoviedb.org/3/discover/movie?api_key=b33cef0e8f9a26e8857366681a641e25&language=en-US&sort_by=popularity.desc&page=1&with_genres=28
+
+Comedy
+https://api.themoviedb.org/3/discover/movie?api_key=b33cef0e8f9a26e8857366681a641e25&language=en-US&sort_by=popularity.desc&page=1&with_genres=35
+
+Crime
+https://api.themoviedb.org/3/discover/movie?api_key=b33cef0e8f9a26e8857366681a641e25&language=en-US&sort_by=popularity.desc&page=1&with_genres=80
+
+
+
+
+
