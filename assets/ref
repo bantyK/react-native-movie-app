@@ -1,4 +1,5 @@
 Genre list
+https://api.themoviedb.org/3/genre/movie/list?api_key=b33cef0e8f9a26e8857366681a641e25&language=en-US
 
 Adventure:
 https://api.themoviedb.org/3/discover/movie?api_key=b33cef0e8f9a26e8857366681a641e25&language=en-US&sort_by=popularity.desc&page=1&with_genres=12

@@ -1,21 +1,13 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView} from 'react-native';
-import {MoviesList} from "./src/components/MoviesList";
+import DiscoverMoviesComponent from "./src/components/DiscoverMoviesComponent";
+
 
 export default class App extends React.Component {
 
     render() {
         return (
-            <SafeAreaView style={styles.container}>
-                <MoviesList genre='action'/>
-            </SafeAreaView>
+            <DiscoverMoviesComponent />
         );
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-});

@@ -17,6 +17,6 @@ export function getMoviesData(genre, page = 1, callback) {
 
 const _getUrl = (genre, page) => {
     return MOVIE_BASE_URL + '&' +
-        encodeURIComponent("with_genre") + "=" + encodeURIComponent(getGenreId(genre)) + '&' +
+        encodeURIComponent("with_genres") + "=" + encodeURIComponent(getGenreId(genre)) + '&' +
         encodeURIComponent("page") + "=" + encodeURIComponent(page);
 }
