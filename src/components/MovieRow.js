@@ -1,20 +1,32 @@
 import React from 'react';
-import {View, Image, StyleSheet} from 'react-native';
+import { Image, StyleSheet, TouchableHighlight} from 'react-native';
 import {POSTER_IMAGE_BASE_URL} from "../api/utils/MovieApiUtil";
+import {withNavigation} from 'react-navigation';
 
-export default class MovieRow extends React.Component {
+class MovieRow extends React.Component {
     render() {
         const {movie} = this.props;
         const posterPath = POSTER_IMAGE_BASE_URL + movie.poster_path;
         return (
-            <View style={styles.movieRowContainer}>
+            <TouchableHighlight
+                style={styles.movieRowContainer}
+                onPress={() => this.handleClick(movie)}>
                 <Image
                     style={styles.imageContainer}
                     source={{uri: posterPath}}/>
-            </View>
+            </TouchableHighlight>
         );
     }
+
+    handleClick = (movie) => {
+        this.props.navigation.navigate('Details',{
+            movie
+        })
+    }
 }
+
+export default withNavigation(MovieRow);
+
 const styles = StyleSheet.create({
     movieRowContainer: {
         flex: 1,

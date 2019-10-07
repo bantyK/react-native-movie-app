@@ -1,19 +1,20 @@
 import React from 'react';
-import {Dimensions, ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import {DataProvider, LayoutProvider, RecyclerListView} from 'recyclerlistview'
 import MovieRow from "./MovieRow";
 import {getMoviesData} from "../api/utils/MovieProvider";
+import {withNavigation} from 'react-navigation';
 
 const ViewTypes = {
     SINGLE_ROW: 0,
     SPOTLIGHT_BANNER: 1,
 };
 
-const {width} = Dimensions.get('window');
+const DEFAULT_GENRE = "action";
 
 let PAGE = 1;
 
-export class MoviesList extends React.Component {
+class MoviesList extends React.Component {
 
     constructor(args) {
         super(args);
@@ -52,7 +53,7 @@ export class MoviesList extends React.Component {
 
     _capitalise = (text) => {
         return text.charAt(0).toUpperCase() + text.slice(1)
-    }
+    };
 
     render() {
         if (this.state.dataLoading) {
@@ -60,7 +61,8 @@ export class MoviesList extends React.Component {
         } else {
             return (
                 <View style={styles.movieListContainer}>
-                    <Text style={styles.genreText}>{this._capitalise(this.props.genre)}</Text>
+                    <Text
+                        style={styles.genreText}>{this._capitalise(this.props.genre && this.props.genre || DEFAULT_GENRE)}</Text>
                     <RecyclerListView
                         style={styles.recyclerView}
                         rowRenderer={this._renderRow}
@@ -80,7 +82,7 @@ export class MoviesList extends React.Component {
     };
 
     fetchMoreData = () => {
-        getMoviesData(this.props.genre, PAGE, (results) => {
+        getMoviesData(this.props.genre.toLowerCase(), PAGE, (results) => {
             this.setState({
                 dataLoading: false,
                 dataProvider: this.state.dataProvider.cloneWithRows(
@@ -92,6 +94,8 @@ export class MoviesList extends React.Component {
         });
     }
 }
+
+export default withNavigation(MoviesList);
 
 const styles = StyleSheet.create({
     movieListContainer: {

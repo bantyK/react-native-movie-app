@@ -14,6 +14,8 @@ Crime
 https://api.themoviedb.org/3/discover/movie?api_key=b33cef0e8f9a26e8857366681a641e25&language=en-US&sort_by=popularity.desc&page=1&with_genres=80
 
 
+Movie details
+https://api.themoviedb.org/3/movie/{id}?api_key=b33cef0e8f9a26e8857366681a641e25&language=en-US
 
-
-
+Popular movies
+https://api.themoviedb.org/3//discover/movie?/discover/movie?sort_by=popularity.desc&api_key=b33cef0e8f9a26e8857366681a641e25&language=en-US
