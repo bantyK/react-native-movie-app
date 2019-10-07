@@ -1,4 +1,10 @@
-import {API_KEY, getGenreId, MOVIE_BASE_URL, MOVIE_DETAIL_BASE_URL, SIMILAR_MOVIE_URL} from "./MovieApiConstants";
+import {
+    API_KEY,
+    getGenreId,
+    MOVIE_BASE_URL,
+    MOVIE_DETAIL_BASE_URL,
+    SEARCH_BASE_URL,
+} from "./MovieApiConstants";
 
 export const getUrl = (genre, page) => {
     const url = MOVIE_BASE_URL + '&' +
@@ -24,5 +30,14 @@ export const getDetailsUrl = (id) => {
 export const getSimilarMovieUrl = (id) => {
     const url = MOVIE_DETAIL_BASE_URL + id + '/similar' + '?' +
         +encodeURIComponent("language") + "=" + encodeURIComponent("en-US");
+    return _addApiKey(url);
+};
+
+export const getSearchUrl = (queryString, page) => {
+    const url = SEARCH_BASE_URL + '?'
+        + encodeURIComponent("language") + "=" + encodeURIComponent("en-US") + '&'
+        + encodeURIComponent("query") + "=" + encodeURIComponent(queryString) + '&'
+        + encodeURIComponent("page") + "=" + encodeURIComponent(page);
+
     return _addApiKey(url);
 };

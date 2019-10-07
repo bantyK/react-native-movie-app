@@ -10,8 +10,6 @@ const ViewTypes = {
     SPOTLIGHT_BANNER: 1,
 };
 
-const DEFAULT_GENRE = "action";
-
 let PAGE = 1;
 
 class MoviesList extends React.Component {
