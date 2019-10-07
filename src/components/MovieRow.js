@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, TouchableHighlight} from 'react-native';
-import {POSTER_IMAGE_BASE_URL} from "../api/utils/MovieApiUtil";
+import {POSTER_IMAGE_BASE_URL} from "../api/utils/MovieApiConstants";
 import {withNavigation} from 'react-navigation';
 
 class MovieRow extends React.Component {

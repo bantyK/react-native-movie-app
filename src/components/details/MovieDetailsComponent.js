@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {withNavigation} from 'react-navigation';
+import {getMovieDetails} from "../../api/utils/MovieProvider";
 
 class DetailsComponent extends React.Component {
 
@@ -15,9 +16,20 @@ class DetailsComponent extends React.Component {
         }
     };
 
+    _getMovieFrmoProp() {
+        return this.props.navigation.getParam('movie', null);
+
+    }
+
+    componentDidMount() {
+        const movie = this._getMovieFrmoProp();
+        getMovieDetails(movie.id, (movieDetails) => {
+            console.log(movieDetails);
+        })
+    }
+
     render() {
-        const movie = this.props.navigation.getParam("movie", null);
-        console.log(movie);
+        const movie = this._getMovieFrmoProp();
         if (!movie) {
             return (
                 <View style={styles.centerItem}>

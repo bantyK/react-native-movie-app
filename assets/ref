@@ -15,7 +15,10 @@ https://api.themoviedb.org/3/discover/movie?api_key=b33cef0e8f9a26e8857366681a64
 
 
 Movie details
-https://api.themoviedb.org/3/movie/{id}?api_key=b33cef0e8f9a26e8857366681a641e25&language=en-US
+https://api.themoviedb.org/3/movie/{movieid}?api_key=b33cef0e8f9a26e8857366681a641e25&language=en-US
 
 Popular movies
 https://api.themoviedb.org/3//discover/movie?/discover/movie?sort_by=popularity.desc&api_key=b33cef0e8f9a26e8857366681a641e25&language=en-US
+
+Movie credit
+https://api.themoviedb.org/3/movie/{movieid}/credits?api_key=b33cef0e8f9a26e8857366681a641e25

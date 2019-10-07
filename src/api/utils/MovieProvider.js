@@ -1,9 +1,8 @@
-import {getGenreId, MOVIE_BASE_URL} from "./MovieApiUtil";
-
+import {getUrl, getDetailsUrl} from './MovieUrlHelper'
 
 export function getMoviesData(genre, page = 1, callback) {
     try {
-        const url = _getUrl(genre, page);
+        const url = getUrl(genre, page);
         console.log(url);
         fetch(url)
             .then(res => res.json())
@@ -12,11 +11,18 @@ export function getMoviesData(genre, page = 1, callback) {
     } catch (e) {
         console.log("Exception", e.message)
     }
-
 }
 
-const _getUrl = (genre, page) => {
-    return MOVIE_BASE_URL + '&' +
-        encodeURIComponent("with_genres") + "=" + encodeURIComponent(getGenreId(genre)) + '&' +
-        encodeURIComponent("page") + "=" + encodeURIComponent(page);
+export function getMovieDetails(movieId, callback) {
+    try {
+        const movieDetailsUrl = getDetailsUrl(movieId);
+        console.log(movieDetailsUrl);
+        fetch(movieDetailsUrl)
+            .then(res => res.json())
+            .then(resJson => callback(resJson))
+    } catch (e) {
+        console.log('Exception while fetching movie details ', e.message);
+    }
 }
+
+
