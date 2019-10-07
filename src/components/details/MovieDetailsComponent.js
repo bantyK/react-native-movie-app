@@ -1,11 +1,10 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, Dimensions, ActivityIndicator, SafeAreaView} from 'react-native';
+import {View, Text, StyleSheet, Image, Dimensions, ActivityIndicator, SafeAreaView, ScrollView} from 'react-native';
 import {fetchMovieDetails} from "../../api/utils/MovieProvider";
 import {withNavigation} from 'react-navigation';
 import {DETAILS_IMAGE_BASE_URL} from "../../api/utils/MovieApiConstants";
 import Star from 'react-native-star-view';
 import CommonInfo from "./MovieCommonInfo";
-import MoviesList from "../MoviesList";
 import MovieDataList, {MovieListType} from "../MovieDataList";
 
 const {width} = Dimensions.get('screen');
@@ -62,38 +61,41 @@ class DetailsComponent extends React.Component {
         const posterPath = DETAILS_IMAGE_BASE_URL + movie.poster_path;
         console.log(posterPath);
         return (
-            <SafeAreaView style={{flex: 1}}>
-                <Image
-                    style={styles.movieThumb}
-                    source={{uri: posterPath}}
-                />
-                <Text numberOfLines={2} style={styles.movieTitle}>{movie.title.toUpperCase()}</Text>
-                <Text style={styles.movieGenre}>
-                    {
-                        movie.genres.map((genre, index) => {
-                            if (index < MAX_GENRE) {
-                                if (index === MAX_GENRE - 1)
-                                    return genre.name;
-                                else
-                                    return genre.name + ','
-                            }
-                        })
-                    }
-                </Text>
-                <View style={styles.centerAligned}>
-                    <Star style={styles.ratingStar} score={movie.vote_average / 2}/>
-                </View>
+            <ScrollView>
+                <SafeAreaView style={{flex: 1}}>
+                    <Image
+                        style={styles.movieThumb}
+                        source={{uri: posterPath}}
+                    />
+                    <Text numberOfLines={2} style={styles.movieTitle}>{movie.title.toUpperCase()}</Text>
+                    <Text style={styles.movieGenre}>
+                        {
+                            movie.genres.map((genre, index) => {
+                                if (index < MAX_GENRE) {
+                                    if (index === MAX_GENRE - 1)
+                                        return genre.name;
+                                    else
+                                        return genre.name + ' ,'
+                                }
+                            })
+                        }
+                    </Text>
+                    <View style={styles.centerAligned}>
+                        <Star style={styles.ratingStar} score={movie.vote_average / 2}/>
+                    </View>
 
-                <View style={[styles.centerAligned, styles.row, styles.commonInfo]}>
-                    <CommonInfo title="Year" data={this._getYearFromDate(movie.release_date)}/>
-                    <CommonInfo title="Language" data={movie.original_language}/>
-                    <CommonInfo title="Duration" data={movie.runtime}/>
-                </View>
+                    <View style={[styles.centerAligned, styles.row, styles.commonInfo]}>
+                        <CommonInfo title="Year" data={this._getYearFromDate(movie.release_date)}/>
+                        <CommonInfo title="Language" data={movie.original_language}/>
+                        <CommonInfo title="Duration" data={movie.runtime}/>
+                    </View>
 
-                <Text style={styles.overview}>{movie.overview}</Text>
+                    <Text style={styles.overview}>{movie.overview}</Text>
 
-                <MovieDataList externalStyle={styles.similarMovieContainer} listType={MovieListType.SIMILAR} movieId={movie.id}/>
-            </SafeAreaView>
+                    <MovieDataList externalStyle={styles.similarMovieContainer} listType={MovieListType.SIMILAR}
+                                   movieId={movie.id}/>
+                </SafeAreaView>
+            </ScrollView>
         );
     };
 

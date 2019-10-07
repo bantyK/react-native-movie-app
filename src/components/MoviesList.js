@@ -56,14 +56,14 @@ class MoviesList extends React.Component {
     };
 
     _capitalise = (text) => {
-        return text.charAt(0).toUpperCase() + text.slice(1)
+        return text !== "" ? text.charAt(0).toUpperCase() + text.slice(1) : "";
     };
 
     render() {
         return (
             <View style={styles.container}>
                 <Text style={[styles.genreText, this.props.externalStyle]}>
-                    {this._capitalise(this.props.genre && this.props.genre || DEFAULT_GENRE)}
+                    {this._capitalise(this.props.title)}
                 </Text>
                 <RecyclerListView
                     rowRenderer={this._renderRow}
@@ -83,7 +83,8 @@ class MoviesList extends React.Component {
     };
 
     fetchMoreData = () => {
-        fetchMoviesData(this.props.genre.toLowerCase(), PAGE, (results) => {
+        let genre = this.props.genre && this.props.genre || "";
+        fetchMoviesData(genre.toLowerCase(), PAGE, (results) => {
             this.setState({
                 dataLoading: false,
                 dataProvider: this.state.dataProvider.cloneWithRows(

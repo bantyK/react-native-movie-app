@@ -53,8 +53,16 @@ class MovieDataList extends React.Component {
 
     render() {
         const movies = this.state.movies;
+        const {listType} = this.props;
         if (movies.length > 0) {
-            return (<MoviesList externalStyle={this.props.externalStyle} genre={this.props.genre && this.props.genre || "Similar"} data={movies}/>);
+            if (listType === MovieListType.SIMILAR) {
+                return (<MoviesList externalStyle={this.props.externalStyle} title="Similar" data={movies}/>);
+            } else {
+                return (<MoviesList externalStyle={this.props.externalStyle}
+                                    title={this.props.genre && this.props.genre || "Action"}
+                                    genre={this.props.genre && this.props.genre || "Action"} data={movies}/>);
+            }
+
         } else {
             return (<ActivityIndicator style={styles.activityIndicator}/>);
         }
@@ -64,8 +72,8 @@ class MovieDataList extends React.Component {
 const styles = StyleSheet.create({
     activityIndicator: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        width: 20,
+        height: 20
     },
 });
 
