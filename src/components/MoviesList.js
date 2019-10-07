@@ -2,7 +2,7 @@ import React from 'react';
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import {DataProvider, LayoutProvider, RecyclerListView} from 'recyclerlistview'
 import MovieRow from "./MovieRow";
-import {getMoviesData} from "../api/utils/MovieProvider";
+import {fetchMoviesData} from "../api/utils/MovieProvider";
 import {withNavigation} from 'react-navigation';
 
 const ViewTypes = {
@@ -43,7 +43,11 @@ class MoviesList extends React.Component {
 
 
     componentDidMount() {
-        this.fetchMoreData()
+        console.log("Data : ", this.props.data.length);
+        const moviesFromProps = this.props.data;
+        this.setState({
+            movies: this.state.movies.concat(moviesFromProps),
+        })
     }
 
 
@@ -56,25 +60,22 @@ class MoviesList extends React.Component {
     };
 
     render() {
-        if (this.state.dataLoading) {
-            return <ActivityIndicator style={styles.activityIndicator}/>
-        } else {
-            return (
-                <View style={styles.movieListContainer}>
-                    <Text
-                        style={styles.genreText}>{this._capitalise(this.props.genre && this.props.genre || DEFAULT_GENRE)}</Text>
-                    <RecyclerListView
-                        style={styles.recyclerView}
-                        rowRenderer={this._renderRow}
-                        dataProvider={this.state.dataProvider}
-                        layoutProvider={this._layoutProvider}
-                        isHorizontal={true}
-                        onEndReached={this.handleEndReached}
-                        onEndReachedThreshold={300}
-                    />
-                </View>
-            )
-        }
+        return (
+            <View style={styles.container}>
+                <Text style={[styles.genreText, this.props.externalStyle]}>
+                    {this._capitalise(this.props.genre && this.props.genre || DEFAULT_GENRE)}
+                </Text>
+                <RecyclerListView
+                    rowRenderer={this._renderRow}
+                    dataProvider={this.state.dataProvider}
+                    layoutProvider={this._layoutProvider}
+                    isHorizontal={true}
+                    onEndReached={this.handleEndReached}
+                    onEndReachedThreshold={300}
+                />
+            </View>
+
+        )
     };
 
     handleEndReached = () => {
@@ -82,7 +83,7 @@ class MoviesList extends React.Component {
     };
 
     fetchMoreData = () => {
-        getMoviesData(this.props.genre.toLowerCase(), PAGE, (results) => {
+        fetchMoviesData(this.props.genre.toLowerCase(), PAGE, (results) => {
             this.setState({
                 dataLoading: false,
                 dataProvider: this.state.dataProvider.cloneWithRows(
@@ -98,18 +99,11 @@ class MoviesList extends React.Component {
 export default withNavigation(MoviesList);
 
 const styles = StyleSheet.create({
-    movieListContainer: {
-        marginLeft: 10,
-    },
-    recyclerView: {
+    container: {
         flex: 1,
         width: '100%',
-        height: 200
-    },
-    activityIndicator: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        height: 200,
+        marginLeft: 10,
     },
     genreText: {
         fontSize: 25,

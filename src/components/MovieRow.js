@@ -19,7 +19,7 @@ class MovieRow extends React.Component {
     }
 
     handleClick = (movie) => {
-        this.props.navigation.navigate('Details',{
+        this.props.navigation.push('Details',{
             movie
         })
     }

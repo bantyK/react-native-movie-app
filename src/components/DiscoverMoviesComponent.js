@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import MoviesList from "./MoviesList";
 import Icon from 'react-native-vector-icons/Ionicons';
+import MovieDataList from "./MovieDataList";
 
 const genreList = [
     'action',
@@ -45,12 +46,13 @@ export default class DiscoverMoviesComponent extends React.Component {
     };
 
     render() {
+        const listType = MovieDataList.GENRE;
 
         return (
             <ScrollView style={styles.container}>
                 {
                     genreList.map((genreName, index) => {
-                        return <MoviesList key={index} genre={genreName}/>
+                        return <MovieDataList listType={listType} key={index} genre={genreName}/>
                     })
                 }
             </ScrollView>

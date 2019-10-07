@@ -1,10 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image, Dimensions, ActivityIndicator, SafeAreaView} from 'react-native';
-import {getMovieDetails} from "../../api/utils/MovieProvider";
+import {fetchMovieDetails} from "../../api/utils/MovieProvider";
 import {withNavigation} from 'react-navigation';
 import {DETAILS_IMAGE_BASE_URL} from "../../api/utils/MovieApiConstants";
 import Star from 'react-native-star-view';
 import CommonInfo from "./MovieCommonInfo";
+import MoviesList from "../MoviesList";
+import MovieDataList, {MovieListType} from "../MovieDataList";
 
 const {width} = Dimensions.get('screen');
 
@@ -29,7 +31,7 @@ class DetailsComponent extends React.Component {
 
     componentDidMount() {
         const movie = this._getMovieFrmoProp();
-        getMovieDetails(movie.id, (movieDetails) => {
+        fetchMovieDetails(movie.id, (movieDetails) => {
             this.setState({
                     movieDetails
                 }
@@ -89,9 +91,11 @@ class DetailsComponent extends React.Component {
                 </View>
 
                 <Text style={styles.overview}>{movie.overview}</Text>
+
+                <MovieDataList externalStyle={styles.similarMovieContainer} listType={MovieListType.SIMILAR} movieId={movie.id}/>
             </SafeAreaView>
         );
-    }
+    };
 
     _getYearFromDate = (date) => {
         return date.split('-')[0];
@@ -148,6 +152,10 @@ const styles = StyleSheet.create({
         color: '#566573',
         textAlign: 'center',
         paddingHorizontal: 16,
+        marginTop: 20,
+    },
+    similarMovieContainer: {
+        marginLeft: 10,
         marginTop: 20,
     }
 });
